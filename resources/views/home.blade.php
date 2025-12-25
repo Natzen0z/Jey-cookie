@@ -1,32 +1,6 @@
 @extends('layouts.app')
-<<<<<<< Updated upstream
 
-@section('content')
-
-<!-- Hero -->
-<div class="text-center p-5 bg-light rounded">
-    <h1 class="fw-bold">Jeycookie 🍪</h1>
-    <p class="text-muted">Fresh homemade cookies for your sweet moment</p>
-</div>
-
-<!-- Kategori -->
-<h3 class="mt-5 mb-3">Kategori</h3>
-
-<div class="row">
-    @foreach ($categories as $category)
-        <div class="col-md-4">
-            <div class="card text-center mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $category }}</h5>
-                </div>
-            </div>
-        </div>
-    @endforeach
-</div>
-
-@endsection
-=======
-@section('title','Home')
+@section('title', 'Home')
 
 @section('content')
 
@@ -34,30 +8,52 @@
 <section class="hero-card mb-5">
     <div class="row align-items-center">
         <div class="col-lg-6 hero-left">
-            <h1 class="display-5 fw-bold text-pink-600">Fresh Donuts & Cookies Everyday 🍩</h1>
-            <p class="lead text-muted mt-3">Nikmati donut lembut dan cookies renyah dibuat fresh setiap hari menggunakan bahan premium. Rasakan rasa yang membuat senyum terus merekah.</p>
+            <h1 class="display-4 fw-bold text-gradient">Fresh Cookies & Pastries Everyday 🍪</h1>
+            <p class="lead text-muted mt-3">
+                Nikmati cookies renyah, donut lembut, dan kue-kue premium yang dibuat fresh setiap hari dengan bahan pilihan terbaik. Rasakan kelezatan yang membuat hari-harimu lebih manis!
+            </p>
 
-            <div class="mt-4 d-flex gap-2">
-                <a href="{{ url('/order') }}" class="btn btn-pink btn-lg">Order Now</a>
-                <a href="#hot-deals" class="btn btn-outline-secondary btn-lg">Hot Deals</a>
+            <div class="mt-4 d-flex gap-3 flex-wrap">
+                <a href="{{ route('products.index') }}" class="btn btn-pink btn-lg px-4">
+                    <i class="fa-solid fa-shopping-bag me-2"></i> Shop Now
+                </a>
+                <a href="#categories" class="btn btn-outline-pink btn-lg px-4">
+                    <i class="fa-solid fa-th-large me-2"></i> Browse Categories
+                </a>
             </div>
 
-            <!-- small badges -->
-            <div class="d-flex gap-3 mt-4">
+            <!-- Feature Badges -->
+            <div class="d-flex gap-4 mt-4 flex-wrap">
                 <div class="d-flex align-items-center">
-                    <div class="me-2 p-2 rounded-circle" style="background:#fff3f8"><i class="fa-solid fa-bread-slice text-pink-500"></i></div>
-                    <div><small class="text-muted">Fresh Daily</small></div>
+                    <div class="feature-icon-sm">
+                        <i class="fa-solid fa-fire text-danger"></i>
+                    </div>
+                    <small class="text-muted ms-2">Fresh Daily</small>
                 </div>
-
                 <div class="d-flex align-items-center">
-                    <div class="me-2 p-2 rounded-circle" style="background:#fff8ea"><i class="fa-solid fa-seedling text-warning"></i></div>
-                    <div><small class="text-muted">Natural Ingredients</small></div>
+                    <div class="feature-icon-sm">
+                        <i class="fa-solid fa-leaf text-success"></i>
+                    </div>
+                    <small class="text-muted ms-2">Natural Ingredients</small>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="feature-icon-sm">
+                        <i class="fa-solid fa-truck text-primary"></i>
+                    </div>
+                    <small class="text-muted ms-2">Fast Delivery</small>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6 text-center">
-            <img src="https://i.ibb.co/gWP7P8w/donut-pink.png" alt="donut" class="product-img mt-3">
+        <div class="col-lg-6 text-center mt-4 mt-lg-0">
+            <div class="hero-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&h=500&fit=crop" 
+                     alt="Delicious Cookies" class="hero-image">
+                <div class="hero-image-badge">
+                    <span class="badge-discount">20% OFF</span>
+                    <span class="badge-text">First Order</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -66,145 +62,320 @@
 <section class="mb-5">
     <div class="row g-4">
         <div class="col-md-4">
-            <div class="p-4 bg-white rounded-4 shadow-sm text-center">
-                <h5 class="fw-bold text-pink-600">Freshly Baked</h5>
-                <p class="text-muted small">Setiap hari dipanggang di toko kami.</p>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-cookie-bite"></i>
+                </div>
+                <h5 class="fw-bold mt-3">Freshly Baked</h5>
+                <p class="text-muted small mb-0">Setiap produk dipanggang segar dari oven setiap hari.</p>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="p-4 bg-white rounded-4 shadow-sm text-center">
-                <h5 class="fw-bold text-pink-600">Premium Ingredients</h5>
-                <p class="text-muted small">Tanpa pengawet, hanya bahan terbaik.</p>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h5 class="fw-bold mt-3">Premium Quality</h5>
+                <p class="text-muted small mb-0">Hanya menggunakan bahan-bahan berkualitas tinggi.</p>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="p-4 bg-white rounded-4 shadow-sm text-center">
-                <h5 class="fw-bold text-pink-600">Fast Delivery</h5>
-                <p class="text-muted small">Pesanan cepat sampai.</p>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <h5 class="fw-bold mt-3">Fast Delivery</h5>
+                <p class="text-muted small mb-0">Pesanan dikirim cepat dan dikemas dengan aman.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- HOT DEALS (product grid) -->
-<section id="hot-deals" class="mb-5">
-    <h3 class="fw-bold mb-4 text-pink-600">Hot Deals</h3>
+<!-- CATEGORIES -->
+<section id="categories" class="mb-5">
+    <div class="section-header text-center mb-4">
+        <h2 class="fw-bold">Browse by Category</h2>
+        <p class="text-muted">Temukan produk favorit berdasarkan kategori</p>
+    </div>
 
     <div class="row g-4">
-        @php
-        // contoh produk statis — nanti bisa di loop dari DB
-        $products = [
-        ['title'=>'Pink Donut','price'=>'15.000','img'=>'https://i.ibb.co/gWP7P8w/donut-pink.png'],
-        ['title'=>'Chocolate Donut','price'=>'17.000','img'=>'https://i.ibb.co/XpkvLDY/donut-choco.png'],
-        ['title'=>'Chocolate Cookies','price'=>'12.000','img'=>'https://i.ibb.co/d4tHNgT/cookie-choco.png'],
-        ['title'=>'Sprinkle Donut','price'=>'16.000','img'=>'https://i.ibb.co/3y5Yp2Q/donut-sprinkle.png']
-        ];
-        @endphp
-
-        @foreach($products as $p)
-        <div class="col-sm-6 col-lg-3">
-            <div class="product-card text-center h-100 d-flex flex-column align-items-center">
-                <img src="{{ $p['img'] }}" alt="{{ $p['title'] }}" class="product-img mb-3">
-                <h6 class="fw-bold text-pink-600 mb-1">{{ $p['title'] }}</h6>
-                <p class="text-muted mb-3">Rp {{ $p['price'] }}</p>
-                <a href="{{ url('/order') }}" class="btn btn-pink mt-auto">Add to Cart</a>
+        @forelse($categories as $category)
+            <div class="col-6 col-md-3">
+                <a href="{{ route('products.category', $category->slug) }}" class="category-card text-decoration-none">
+                    <div class="category-icon">
+                        @switch($category->name)
+                            @case('Cookies')
+                                🍪
+                                @break
+                            @case('Donuts')
+                                🍩
+                                @break
+                            @case('Cakes')
+                                🎂
+                                @break
+                            @case('Brownies')
+                                🍫
+                                @break
+                            @case('Pastries')
+                                🥐
+                                @break
+                            @default
+                                🧁
+                        @endswitch
+                    </div>
+                    <h6 class="mt-2 mb-0 fw-semibold">{{ $category->name }}</h6>
+                    <small class="text-muted">{{ $category->products_count ?? 0 }} products</small>
+                </a>
             </div>
-        </div>
-        @endforeach
+        @empty
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <div class="category-icon">🍪</div>
+                    <h6 class="mt-2 mb-0 fw-semibold">Cookies</h6>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <div class="category-icon">🍩</div>
+                    <h6 class="mt-2 mb-0 fw-semibold">Donuts</h6>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <div class="category-icon">🎂</div>
+                    <h6 class="mt-2 mb-0 fw-semibold">Cakes</h6>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <div class="category-icon">🥐</div>
+                    <h6 class="mt-2 mb-0 fw-semibold">Pastries</h6>
+                </div>
+            </div>
+        @endforelse
     </div>
 </section>
 
-<!-- QUALITY COMMITMENT -->
-<section class="mb-5">
-    <div class="row align-items-center">
-        <div class="col-lg-6">
-            <img src="https://i.ibb.co/QkqZ4Bk/donut-box.png" alt="box" class="img-fluid rounded-3 shadow-sm">
+<!-- FEATURED PRODUCTS -->
+<section id="featured" class="mb-5">
+    <div class="section-header d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Featured Products</h2>
+            <p class="text-muted mb-0">Produk terlaris dan paling disukai</p>
         </div>
-        <div class="col-lg-6">
-            <h3 class="fw-bold text-pink-600">Our Quality Commitment</h3>
-            <ul class="mt-3">
-                <li class="text-muted mb-2">✔ No preservatives — hanya bahan alami.</li>
-                <li class="text-muted mb-2">✔ Baked fresh every morning.</li>
-                <li class="text-muted mb-2">✔ Hygienic & quality-controlled production.</li>
-            </ul>
-        </div>
+        <a href="{{ route('products.index') }}" class="btn btn-outline-pink">
+            View All <i class="fa-solid fa-arrow-right ms-1"></i>
+        </a>
+    </div>
+
+    <div class="row g-4">
+        @forelse($featuredProducts as $product)
+            <div class="col-6 col-lg-3">
+                <div class="product-card h-100">
+                    <div class="product-image-wrapper">
+                        @if($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="product-image">
+                        @else
+                            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=300&h=300&fit=crop" 
+                                 alt="{{ $product->name }}" class="product-image">
+                        @endif
+                        @if($product->stock < 5 && $product->stock > 0)
+                            <span class="product-badge bg-warning">Low Stock</span>
+                        @elseif($product->stock == 0)
+                            <span class="product-badge bg-danger">Sold Out</span>
+                        @endif
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">{{ $product->category->name ?? 'Uncategorized' }}</span>
+                        <h6 class="product-title">{{ $product->name }}</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="product-price">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
+                            @if($product->stock > 0)
+                                <form action="{{ route('cart.add') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="btn btn-sm btn-pink">
+                                        <i class="fa-solid fa-cart-plus"></i>
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @empty
+            @php
+                $sampleProducts = [
+                    ['title' => 'Chocolate Chip Cookie', 'price' => 15000, 'img' => 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=300&h=300&fit=crop'],
+                    ['title' => 'Pink Glazed Donut', 'price' => 18000, 'img' => 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&h=300&fit=crop'],
+                    ['title' => 'Red Velvet Cake', 'price' => 85000, 'img' => 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=300&h=300&fit=crop'],
+                    ['title' => 'Fudge Brownies', 'price' => 25000, 'img' => 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300&h=300&fit=crop'],
+                ];
+            @endphp
+            @foreach($sampleProducts as $p)
+                <div class="col-6 col-lg-3">
+                    <div class="product-card h-100">
+                        <div class="product-image-wrapper">
+                            <img src="{{ $p['img'] }}" alt="{{ $p['title'] }}" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Cookies</span>
+                            <h6 class="product-title">{{ $p['title'] }}</h6>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="product-price">Rp {{ number_format($p['price'], 0, ',', '.') }}</span>
+                                <button class="btn btn-sm btn-pink">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endforelse
     </div>
 </section>
 
-<!-- OFFER BANNER -->
-<section class="offer-banner mb-5">
+<!-- PROMO BANNER -->
+<section class="promo-banner mb-5">
     <div class="row align-items-center">
         <div class="col-md-8">
-            <h4 class="fw-bold">Get 35% Off For First Order</h4>
-            <p class="text-muted">Gunakan kode <span class="fw-semibold">SWEET35</span> di checkout — hanya untuk pelanggan baru!</p>
+            <h3 class="fw-bold mb-2">🎉 First Order Discount!</h3>
+            <p class="mb-0 text-muted">Dapatkan diskon 20% untuk pembelian pertama kamu. Gunakan kode <span class="promo-code">SWEET20</span> saat checkout!</p>
         </div>
-        <div class="col-md-4 text-md-end">
-            <a href="{{ url('/order') }}" class="btn btn-pink btn-lg">Claim Offer</a>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <a href="{{ route('products.index') }}" class="btn btn-pink btn-lg">
+                <i class="fa-solid fa-tag me-2"></i> Shop Now
+            </a>
         </div>
     </div>
 </section>
 
-<!-- TESTIMONIALS (carousel) -->
+<!-- WHY CHOOSE US -->
 <section class="mb-5">
-    <h4 class="fw-bold text-pink-600 mb-4">What customers say</h4>
-
-    <div id="testiCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="testimonial-card d-flex gap-3 align-items-center">
-                    <img src="https://i.pravatar.cc/80?img=3" class="rounded-circle" alt="avatar">
-                    <div>
-                        <p class="mb-1">"Donut nya lembut, toppingnya pas. Enak banget!"</p>
-                        <small class="text-muted">— Dewi, Jakarta</small>
-                    </div>
+    <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+            <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&h=400&fit=crop" 
+                 alt="Our Kitchen" class="img-fluid rounded-4 shadow">
+        </div>
+        <div class="col-lg-6">
+            <h2 class="fw-bold mb-4">Why Choose Jeycookie?</h2>
+            <div class="why-item mb-3">
+                <div class="why-icon"><i class="fa-solid fa-check"></i></div>
+                <div>
+                    <h6 class="fw-semibold mb-1">No Preservatives</h6>
+                    <p class="text-muted small mb-0">100% bahan alami tanpa pengawet buatan.</p>
                 </div>
             </div>
-
-            <div class="carousel-item">
-                <div class="testimonial-card d-flex gap-3 align-items-center">
-                    <img src="https://i.pravatar.cc/80?img=5" class="rounded-circle" alt="avatar2">
-                    <div>
-                        <p class="mb-1">"Cepat sampai dan pack nya rapi. Recommended!"</p>
-                        <small class="text-muted">— Andi, Bandung</small>
-                    </div>
+            <div class="why-item mb-3">
+                <div class="why-icon"><i class="fa-solid fa-check"></i></div>
+                <div>
+                    <h6 class="fw-semibold mb-1">Baked Fresh Every Morning</h6>
+                    <p class="text-muted small mb-0">Produk dibuat segar setiap hari.</p>
                 </div>
             </div>
+            <div class="why-item mb-3">
+                <div class="why-icon"><i class="fa-solid fa-check"></i></div>
+                <div>
+                    <h6 class="fw-semibold mb-1">Hygienic Production</h6>
+                    <p class="text-muted small mb-0">Proses produksi yang bersih dan terstandar.</p>
+                </div>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fa-solid fa-check"></i></div>
+                <div>
+                    <h6 class="fw-semibold mb-1">Satisfaction Guaranteed</h6>
+                    <p class="text-muted small mb-0">Garansi kepuasan atau uang kembali.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <div class="carousel-item">
-                <div class="testimonial-card d-flex gap-3 align-items-center">
-                    <img src="https://i.pravatar.cc/80?img=7" class="rounded-circle" alt="avatar3">
+<!-- TESTIMONIALS -->
+<section class="mb-5">
+    <div class="section-header text-center mb-4">
+        <h2 class="fw-bold">What Our Customers Say</h2>
+        <p class="text-muted">Testimoni dari pelanggan setia kami</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="testimonial-card">
+                <div class="testimonial-rating mb-2">
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                </div>
+                <p class="testimonial-text">"Cookies-nya enak banget! Renyah di luar, chewy di dalam. Pasti repeat order!"</p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/50?img=1" alt="Customer" class="testimonial-avatar">
                     <div>
-                        <p class="mb-1">"Worth the price. Rasanya otentik dan nggak eneg."</p>
-                        <small class="text-muted">— Sinta, Surabaya</small>
+                        <h6 class="mb-0 fw-semibold">Sarah M.</h6>
+                        <small class="text-muted">Jakarta</small>
                     </div>
                 </div>
             </div>
         </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#testiCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#testiCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
+        <div class="col-md-4">
+            <div class="testimonial-card">
+                <div class="testimonial-rating mb-2">
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                </div>
+                <p class="testimonial-text">"Pengiriman cepat dan packaging-nya rapi. Brownies-nya juara!"</p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/50?img=3" alt="Customer" class="testimonial-avatar">
+                    <div>
+                        <h6 class="mb-0 fw-semibold">Andi K.</h6>
+                        <small class="text-muted">Bandung</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial-card">
+                <div class="testimonial-rating mb-2">
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                </div>
+                <p class="testimonial-text">"Red velvet cake-nya lembut dan tidak terlalu manis. Cocok untuk yang tidak suka terlalu manis."</p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/50?img=5" alt="Customer" class="testimonial-avatar">
+                    <div>
+                        <h6 class="mb-0 fw-semibold">Maya R.</h6>
+                        <small class="text-muted">Surabaya</small>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- NEWSLETTER -->
-<section class="mb-5">
+<section class="newsletter-section mb-5">
     <div class="row align-items-center">
-        <div class="col-md-8">
-            <h5 class="fw-bold text-pink-600">Join our sweet community</h5>
-            <p class="text-muted">Dapatkan promo & resep eksklusif langsung ke inbox.</p>
+        <div class="col-lg-6">
+            <h3 class="fw-bold mb-2">Join Our Sweet Community! 🍩</h3>
+            <p class="text-muted mb-0">Dapatkan promo eksklusif dan info produk terbaru langsung ke email kamu.</p>
         </div>
-        <div class="col-md-4">
-            <form class="d-flex">
-                <input class="form-control input-news me-2" placeholder="Masukkan email kamu">
-                <button class="btn btn-pink">Subscribe</button>
+        <div class="col-lg-6">
+            <form class="newsletter-form d-flex gap-2 mt-3 mt-lg-0">
+                <input type="email" class="form-control input-newsletter" placeholder="Masukkan email kamu" required>
+                <button type="submit" class="btn btn-pink px-4">
+                    <i class="fa-solid fa-paper-plane me-1"></i> Subscribe
+                </button>
             </form>
         </div>
     </div>
 </section>
 
 @endsection
->>>>>>> Stashed changes

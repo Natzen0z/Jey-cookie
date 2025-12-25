@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title', 'Add Product')
+@section('title', 'Edit Product')
 
 @section('content')
 
@@ -12,11 +12,12 @@
 
 <div class="card">
     <div class="card-header">
-        <i class="fa-solid fa-plus me-2"></i> Add New Product
+        <i class="fa-solid fa-edit me-2"></i> Edit Product: {{ $product->name }}
     </div>
     <div class="card-body">
-        <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             
             <div class="row g-4">
                 <div class="col-md-8">
@@ -26,7 +27,7 @@
                                class="form-control @error('name') is-invalid @enderror" 
                                id="name" 
                                name="name" 
-                               value="{{ old('name') }}"
+                               value="{{ old('name', $product->name) }}"
                                required>
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -41,7 +42,7 @@
                                 required>
                             <option value="">Select Category</option>
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
                                     {{ $category->name }}
                                 </option>
                             @endforeach
@@ -56,7 +57,7 @@
                         <textarea class="form-control @error('description') is-invalid @enderror" 
                                   id="description" 
                                   name="description" 
-                                  rows="4">{{ old('description') }}</textarea>
+                                  rows="4">{{ old('description', $product->description) }}</textarea>
                         @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -69,7 +70,7 @@
                                    class="form-control @error('price') is-invalid @enderror" 
                                    id="price" 
                                    name="price" 
-                                   value="{{ old('price') }}"
+                                   value="{{ old('price', $product->price) }}"
                                    min="0"
                                    required>
                             @error('price')
@@ -83,7 +84,7 @@
                                    class="form-control @error('stock') is-invalid @enderror" 
                                    id="stock" 
                                    name="stock" 
-                                   value="{{ old('stock', 0) }}"
+                                   value="{{ old('stock', $product->stock) }}"
                                    min="0"
                                    required>
                             @error('stock')
@@ -98,7 +99,7 @@
                                class="form-control @error('weight') is-invalid @enderror" 
                                id="weight" 
                                name="weight" 
-                               value="{{ old('weight') }}"
+                               value="{{ old('weight', $product->weight) }}"
                                min="0"
                                step="0.01">
                         @error('weight')
@@ -110,6 +111,17 @@
                 <div class="col-md-4">
                     <div class="mb-3">
                         <label for="image" class="form-label">Product Image</label>
+                        
+                        @if($product->image)
+                            <div class="mb-2">
+                                <img src="{{ asset('storage/' . $product->image) }}" 
+                                     alt="{{ $product->name }}" 
+                                     class="img-fluid rounded"
+                                     style="max-width: 200px;">
+                                <p class="form-text">Current image</p>
+                            </div>
+                        @endif
+                        
                         <input type="file" 
                                class="form-control @error('image') is-invalid @enderror" 
                                id="image" 
@@ -118,23 +130,26 @@
                         @error('image')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        <div class="form-text">Max 2MB. JPG, PNG, WEBP</div>
+                        <div class="form-text">Leave empty to keep current image. Max 2MB.</div>
                     </div>
 
                     <div id="imagePreview" class="mb-3" style="display: none;">
                         <img src="" alt="Preview" class="img-fluid rounded" id="previewImg">
+                        <p class="form-text">New image preview</p>
                     </div>
 
                     <div class="mb-3">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" checked>
+                            <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" 
+                                   {{ old('is_active', $product->is_active) ? 'checked' : '' }}>
                             <label class="form-check-label" for="is_active">Active</label>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1">
+                            <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1"
+                                   {{ old('is_featured', $product->is_featured) ? 'checked' : '' }}>
                             <label class="form-check-label" for="is_featured">Featured Product</label>
                         </div>
                     </div>
@@ -145,7 +160,7 @@
 
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-pink">
-                    <i class="fa-solid fa-save me-2"></i> Save Product
+                    <i class="fa-solid fa-save me-2"></i> Update Product
                 </button>
                 <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Cancel</a>
             </div>
