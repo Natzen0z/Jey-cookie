@@ -249,12 +249,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="nav-link w-100 text-start border-0 bg-transparent">
-                        <i class="fa-solid fa-sign-out-alt"></i> Logout
-                    </button>
-                </form>
+                <button type="button" class="nav-link w-100 text-start border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                    <i class="fa-solid fa-sign-out-alt"></i> Logout
+                </button>
             </li>
         </ul>
     </nav>
@@ -296,10 +293,77 @@
         </div>
     </main>
 
+    <!-- Logout Confirmation Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">
+                        <i class="fa-solid fa-shield-halved me-2"></i> Konfirmasi Logout
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('logout.confirm') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <p class="text-muted mb-3">Masukkan password Anda untuk mengkonfirmasi logout dari panel admin.</p>
+                        <div class="mb-3">
+                            <label for="logout_password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" 
+                                       class="form-control" 
+                                       id="logout_password" 
+                                       name="password" 
+                                       placeholder="Masukkan password Anda"
+                                       required>
+                                <button class="btn btn-outline-secondary" type="button" onclick="toggleLogoutPassword()">
+                                    <i class="fa-solid fa-eye" id="toggleLogoutIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-solid fa-sign-out-alt me-1"></i> Logout
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function toggleLogoutPassword() {
+            const passwordInput = document.getElementById('logout_password');
+            const toggleIcon = document.getElementById('toggleLogoutIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Show modal if there was a logout error
+        @if(session('error') && str_contains(session('error'), 'Password'))
+            document.addEventListener('DOMContentLoaded', function() {
+                var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
+                logoutModal.show();
+            });
+        @endif
+    </script>
 
     @stack('scripts')
 </body>
 
 </html>
+

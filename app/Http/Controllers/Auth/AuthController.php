@@ -126,4 +126,30 @@ class AuthController extends Controller
         return redirect()->route('home')
             ->with('success', 'Anda telah berhasil logout.');
     }
+
+    /**
+     * Handle password-confirmed logout (for admin).
+     */
+    public function confirmLogout(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string',
+        ], [
+            'password.required' => 'Password wajib diisi.',
+        ]);
+
+        // Verify password matches current user
+        if (!Hash::check($request->password, Auth::user()->password)) {
+            return back()->with('error', 'Password yang Anda masukkan salah.');
+        }
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('home')
+            ->with('success', 'Anda telah berhasil logout.');
+    }
 }
+

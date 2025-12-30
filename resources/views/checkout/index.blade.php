@@ -48,12 +48,15 @@
                         </div>
                         
                         <div class="col-12">
-                            <label for="customer_email" class="form-label">Email</label>
+                            <label for="customer_email" class="form-label">Email <span class="text-danger">*</span></label>
                             <input type="email" 
                                    class="form-control @error('customer_email') is-invalid @enderror" 
                                    id="customer_email" 
                                    name="customer_email" 
-                                   value="{{ old('customer_email', $user->email) }}">
+                                   value="{{ old('customer_email', $user->email) }}"
+                                   placeholder="email@contoh.com"
+                                   required>
+                            <small class="text-muted">Email untuk menerima konfirmasi pesanan</small>
                             @error('customer_email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

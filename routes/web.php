@@ -59,6 +59,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::post('/logout-confirm', [AuthController::class, 'confirmLogout'])->name('logout.confirm')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------

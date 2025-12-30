@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Mail\OrderConfirmationMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -47,12 +49,14 @@ class CheckoutController extends Controller
         $request->validate([
             'customer_name' => 'required|string|max:255',
             'customer_phone' => 'required|string|max:20',
-            'customer_email' => 'nullable|email|max:255',
+            'customer_email' => 'required|email|max:255',
             'customer_address' => 'required|string|max:1000',
             'notes' => 'nullable|string|max:500',
         ], [
             'customer_name.required' => 'Nama lengkap wajib diisi.',
             'customer_phone.required' => 'Nomor telepon wajib diisi.',
+            'customer_email.required' => 'Email wajib diisi untuk konfirmasi pesanan.',
+            'customer_email.email' => 'Format email tidak valid.',
             'customer_address.required' => 'Alamat pengiriman wajib diisi.',
         ]);
 
@@ -200,8 +204,15 @@ class CheckoutController extends Controller
         // For now, we'll just mark as paid (for demo)
         $order->markAsPaid('MANUAL-' . time());
 
+        // Send order confirmation email
+        try {
+            Mail::to($order->customer_email)->send(new OrderConfirmationMail($order));
+        } catch (\Exception $e) {
+            Log::error('Failed to send order confirmation email: ' . $e->getMessage());
+        }
+
         return redirect()->route('orders.show', $order)
-            ->with('success', 'Pembayaran berhasil dikonfirmasi! Pesanan Anda sedang diproses.');
+            ->with('success', 'Pembayaran berhasil dikonfirmasi! Email konfirmasi telah dikirim ke ' . $order->customer_email);
     }
 
     /**
