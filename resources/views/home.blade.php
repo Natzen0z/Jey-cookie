@@ -47,7 +47,7 @@
 
         <div class="col-lg-6 text-center mt-4 mt-lg-0">
             <div class="hero-image-wrapper">
-                <img src="https://res.cloudinary.com/dde7nabsx/image/upload/v1767418387/IMG_9251_pbyge9.jpg"
+                <img src="https://res.cloudinary.com/dde7nabsx/image/upload/v1767420334/IMG_9251_pbyge9_xjwxgx.jpg"
                     alt="Delicious Cookies" class="hero-image">
                 <div class="hero-image-badge">
                     <span class="badge-discount">20% OFF</span>
