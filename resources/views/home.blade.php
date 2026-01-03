@@ -47,7 +47,7 @@
 
         <div class="col-lg-6 text-center mt-4 mt-lg-0">
             <div class="hero-image-wrapper">
-                <img src="https://res.cloudinary.com/dppmxyqt4/image/upload/v1767450060/WhatsApp_Image_2026-01-03_at_19.25.39_mrstke.jpg"
+                <img src="https://res.cloudinary.com/dde7nabsx/image/upload/v1767420334/IMG_9251_pbyge9_xjwxgx.jpg"
                     alt="Delicious Cookies" class="hero-image">
                 <div class="hero-image-badge">
                     <span class="badge-discount">20% OFF</span>
@@ -255,7 +255,7 @@
 <section class="mb-5">
     <div class="row align-items-center g-4">
         <div class="col-lg-6">
-            <img src="https://res.cloudinary.com/dde7nabsx/image/upload/v1767419819/IMG_9275_1_do2vgd.jpg"
+            <img src="https://res.cloudinary.com/dppmxyqt4/image/upload/v1767450060/WhatsApp_Image_2026-01-03_at_19.25.39_mrstke.jpg"
                 alt="Our Kitchen" class="img-fluid rounded-4 shadow">
         </div>
         <div class="col-lg-6">

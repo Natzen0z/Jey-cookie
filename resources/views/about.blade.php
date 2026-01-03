@@ -113,7 +113,7 @@
                     alt="Muhamad Kaisar Hudayef"
                     class="team-image mb-3">
                 <h5 class="fw-bold mb-1">Muhamad Kaisar Hudayef</h5>
-                <p class="text-muted small">Creative Director</p>
+                <p class="text-muted small">Database Scientist</p>
             </div>
         </div>
     </div>
