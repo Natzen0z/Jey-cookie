@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\CloudinaryService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -151,5 +152,31 @@ class Product extends Model
     public function increaseStock(int $quantity): void
     {
         $this->increment('stock', $quantity);
+    }
+
+    /**
+     * Get the optimized image URL (Cloudinary or local).
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        return app(CloudinaryService::class)->getImageUrl($this->image);
+    }
+
+    /**
+     * Get the thumbnail image URL.
+     */
+    public function getThumbnailUrlAttribute(): ?string
+    {
+        if (empty($this->image)) {
+            return null;
+        }
+
+        $cloudinary = app(CloudinaryService::class);
+        
+        if ($cloudinary->isCloudinaryImage($this->image)) {
+            return $cloudinary->thumbnail($this->image, 300, 300);
+        }
+
+        return asset('storage/' . $this->image);
     }
 }

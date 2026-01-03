@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Services\CloudinaryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -53,9 +54,11 @@ class AdminCategoryController extends Controller
             $validated['slug'] = $originalSlug . '-' . $count++;
         }
 
-        // Handle image upload
+        // Handle image upload to Cloudinary
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('categories', 'public');
+            $cloudinary = app(CloudinaryService::class);
+            $result = $cloudinary->upload($request->file('image'), 'categories');
+            $validated['image'] = $result['public_id'];
         }
 
         $validated['is_active'] = $request->boolean('is_active', true);
@@ -99,12 +102,19 @@ class AdminCategoryController extends Controller
             }
         }
 
-        // Handle image upload
+        // Handle image upload to Cloudinary
         if ($request->hasFile('image')) {
-            if ($category->image) {
+            $cloudinary = app(CloudinaryService::class);
+            
+            // Delete old image
+            if ($category->image && $cloudinary->isCloudinaryImage($category->image)) {
+                $cloudinary->delete($category->image);
+            } elseif ($category->image) {
                 Storage::disk('public')->delete($category->image);
             }
-            $validated['image'] = $request->file('image')->store('categories', 'public');
+            
+            $result = $cloudinary->upload($request->file('image'), 'categories');
+            $validated['image'] = $result['public_id'];
         }
 
         $validated['is_active'] = $request->boolean('is_active', true);
@@ -126,8 +136,15 @@ class AdminCategoryController extends Controller
             return back()->with('error', 'Kategori tidak dapat dihapus karena masih memiliki produk.');
         }
 
+        // Delete image from Cloudinary or local storage
         if ($category->image) {
-            Storage::disk('public')->delete($category->image);
+            $cloudinary = app(CloudinaryService::class);
+            
+            if ($cloudinary->isCloudinaryImage($category->image)) {
+                $cloudinary->delete($category->image);
+            } else {
+                Storage::disk('public')->delete($category->image);
+            }
         }
 
         $category->delete();

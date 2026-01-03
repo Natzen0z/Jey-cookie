@@ -116,10 +116,11 @@
                         <div class="product-card h-100">
                             <a href="{{ route('products.show', $product) }}" class="text-decoration-none">
                                 <div class="product-image-wrapper">
-                                    @if($product->image)
-                                        <img src="{{ asset('storage/' . $product->image) }}" 
+                                    @if($product->image_url)
+                                        <img src="{{ $product->image_url }}" 
                                              alt="{{ $product->name }}" 
-                                             class="product-image">
+                                             class="product-image"
+                                             loading="lazy">
                                     @else
                                         <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=300&h=300&fit=crop" 
                                              alt="{{ $product->name }}" 
