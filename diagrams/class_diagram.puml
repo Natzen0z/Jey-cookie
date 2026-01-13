@@ -1,0 +1,144 @@
+@startuml Class Diagram - Toko Roti Jiya
+
+skinparam classAttributeIconSize 0
+
+class User {
+    +id: int
+    +name: string
+    +email: string
+    -password: string
+    +phone: string
+    +address: text
+    +is_admin: boolean
+    +email_verified_at: datetime
+    +created_at: datetime
+    +updated_at: datetime
+    --
+    +orders(): HasMany<Order>
+    +isAdmin(): boolean
+    +recentOrders(limit): Collection
+    +getTotalSpentAttribute(): float
+}
+
+class Category {
+    +id: int
+    +name: string
+    +slug: string
+    +description: text
+    +image: string
+    +is_active: boolean
+    +sort_order: int
+    +created_at: datetime
+    +updated_at: datetime
+    --
+    +products(): HasMany<Product>
+    +activeProducts(): HasMany<Product>
+    +scopeActive(query)
+    +scopeOrdered(query)
+}
+
+class Product {
+    +id: int
+    +category_id: int <<FK>>
+    +name: string
+    +slug: string
+    +description: text
+    +price: decimal
+    +image: string
+    +stock: int
+    +is_active: boolean
+    +is_featured: boolean
+    +weight: decimal
+    +created_at: datetime
+    +updated_at: datetime
+    --
+    +category(): BelongsTo<Category>
+    +orderItems(): HasMany<OrderItem>
+    +decreaseStock(quantity): boolean
+    +increaseStock(quantity): void
+    +isInStock(): boolean
+    +isLowStock(): boolean
+}
+
+class Order {
+    +id: int
+    +user_id: int <<FK, nullable>>
+    +order_number: string
+    +status: enum
+    +subtotal: decimal
+    +delivery_fee: decimal
+    +discount: decimal
+    +total: decimal
+    +customer_name: string
+    +customer_phone: string
+    +customer_email: string
+    +customer_address: text
+    +payment_method: string
+    +payment_status: enum
+    +payment_reference: string
+    +snap_token: string
+    +paid_at: datetime
+    +notes: text
+    +coupon_code: string
+    +created_at: datetime
+    +updated_at: datetime
+    --
+    +user(): BelongsTo<User>
+    +items(): HasMany<OrderItem>
+    +markAsPaid(reference): void
+    +cancel(): void
+    +isPending(): boolean
+    +isPaid(): boolean
+    +canBeCancelled(): boolean
+}
+
+note right of Order::status
+  pending | paid | processing
+  shipped | completed | cancelled
+end note
+
+note right of Order::payment_status
+  unpaid | pending | paid
+  failed | refunded
+end note
+
+class OrderItem {
+    +id: int
+    +order_id: int <<FK>>
+    +product_id: int <<FK, nullable>>
+    +product_name: string
+    +product_price: decimal
+    +quantity: int
+    +subtotal: decimal
+    +notes: text
+    +created_at: datetime
+    +updated_at: datetime
+    --
+    +order(): BelongsTo<Order>
+    +product(): BelongsTo<Product>
+    +calculateSubtotal(): void
+}
+
+' ================================================
+' RELATIONSHIPS
+' ================================================
+' Symbol Legend:
+' --    = Association (simple relationship)
+' o--   = Aggregation (has-a, can exist independently) 
+' *--   = Composition (owns, lifecycle dependent)
+' ..>   = Dependency (uses)
+' ================================================
+
+' User - Order: Association (optional, karena ada Guest Checkout)
+User "0..1" -- "0..*" Order : places >
+
+' Category - Product: Aggregation (Category has Products, tapi Product bisa ada tanpa Category secara teknis)
+Category "1" o-- "0..*" Product : contains >
+
+' Order - OrderItem: Composition (OrderItem TIDAK BISA ada tanpa Order)
+Order "1" *-- "1..*" OrderItem : includes >
+
+' Product - OrderItem: Association (weak reference, product bisa null jika dihapus)
+Product "0..1" -- "0..*" OrderItem : referenced by >
+
+@enduml

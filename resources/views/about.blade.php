@@ -116,6 +116,15 @@
                 <p class="text-muted small">Database Scientist</p>
             </div>
         </div>
+        <div class="col-md-4 col-lg-3">
+            <div class="team-card text-center">
+                <img src="{{ asset('images/team/tafkir.jpg') }}"
+                    alt="Tafkir Muhtadi"
+                    class="team-image mb-3">
+                <h5 class="fw-bold mb-1">Tafkir Muhtadi</h5>
+                <p class="text-muted small">Backend Support</p>
+            </div>
+        </div>
     </div>
 </section>
 

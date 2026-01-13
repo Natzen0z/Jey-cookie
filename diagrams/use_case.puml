@@ -1,0 +1,71 @@
+@startuml Use Case Diagram - Toko Roti Jiya
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Guest" as guest
+actor "Customer" as customer
+actor "Admin" as admin
+actor "Midtrans" as midtrans <<External System>>
+
+customer -|> guest : extends
+
+rectangle "Toko Roti Jiya" {
+    ' Guest Use Cases
+    usecase "Lihat Katalog Produk" as UC1
+    usecase "Lihat Detail Produk" as UC2
+    usecase "Tambah ke Keranjang" as UC3
+    usecase "Lihat Keranjang" as UC4
+    usecase "Guest Checkout" as UC5
+    usecase "Bayar via Midtrans" as UC6
+    usecase "Register" as UC7
+    usecase "Login" as UC8
+    usecase "Lihat About Us" as UC9
+    
+    ' Customer Use Cases
+    usecase "Checkout (Login)" as UC10
+    usecase "Lihat Order History" as UC11
+    usecase "Lihat Detail Order" as UC12
+    usecase "Logout" as UC13
+    
+    ' Admin Use Cases
+    usecase "Lihat Dashboard" as UC14
+    usecase "Kelola Produk\n(CRUD)" as UC15
+    usecase "Kelola Kategori\n(CRUD)" as UC16
+    usecase "Kelola Pesanan" as UC17
+    usecase "Update Status Pesanan" as UC18
+    usecase "Lihat Laporan Penjualan" as UC19
+    usecase "Logout\n(Konfirmasi Password)" as UC20
+}
+
+' Guest connections
+guest --> UC1
+guest --> UC2
+guest --> UC3
+guest --> UC4
+guest --> UC5
+guest --> UC7
+guest --> UC8
+guest --> UC9
+
+' Customer connections
+customer --> UC10
+customer --> UC11
+customer --> UC12
+customer --> UC13
+
+' Admin connections
+admin --> UC14
+admin --> UC15
+admin --> UC16
+admin --> UC17
+admin --> UC19
+admin --> UC20
+
+' Relationships
+UC5 ..> UC6 : <<include>>
+UC10 ..> UC6 : <<include>>
+UC17 ..> UC18 : <<include>>
+UC6 --> midtrans
+
+@enduml
