@@ -211,6 +211,7 @@ For complete CI/CD documentation, refer to: [docs/ci_cd_documentation.md](docs/c
 | Environment | URL | Branch |
 |-------------|-----|--------|
 | Production | https://jeycookie.vercel.app | `main` |
+| Production (Railway) | https://jey-cookie-production.up.railway.app | `main` |
 | Staging | https://jeycookie-staging.vercel.app | `develop` |
 
 ### 6.2 Rollback Procedure
@@ -249,6 +250,7 @@ Additional documentation is available in the `docs/` directory:
 | 2310130009 | Muhammad Irfan Janur Ghifari |
 | 2310130007 | Muhammad Kaisar Hudayef |
 | 2310130011 | Tafkir Muhtadi |
+| 2310120008 | Latifah Fauziya |
 
 ---
 
